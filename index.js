@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const port =3000;
 const student = require('./routes/student');
+require('dotenv').config();
 
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
@@ -20,16 +21,15 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
-
     // Pass to next layer of middleware
+    
     next();
+    console.log(process.env.check+' value');
 });
 var httpServer= http.createServer(app);
 
@@ -44,6 +44,7 @@ var httpServer= http.createServer(app);
 // });
 app.get('/', student.getUsers);
 app.get('/roles',student.getRoles);
+app.get('/roles/:id',student.getSpecificRole);
 app.post('/roles',student.postRoles);
 app.put('/roles/:id',student.updateRoles);
 app.delete('/roles/:id',student.deleteRoles);
@@ -85,4 +86,6 @@ app.delete('/delete/:emp_id',(req, res) =>{
 httpServer.listen(port, () => {
     console.log(`app running on 3000`);
 });
+
+module.exports =app;
 

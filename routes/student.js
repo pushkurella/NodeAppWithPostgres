@@ -27,7 +27,8 @@ const obj = [
 const getUsers = (req, res) => {
     pool.query('select * from boiler_plate', (err, result) => {
 
-        return res.sendStatus(200).json(result.rows);
+        //return res.sendStatus(200).json(result.rows);
+        res.send(result.rows);
     })
 }
 
@@ -44,12 +45,12 @@ const getRoles = (req, res) => {
         })
         var data = obj.forEach((data) => {
             arr.push(data.Role);
-            console.log('data in foreach ' + data.Role);
+           // console.log('data in foreach ' + data.Role);
             return arr;
         })
         console.log('type od data ' + typeof data);
         var filtered = obj.filter((data) => {
-            console.log('data in filter ' + data);
+           // console.log('data in filter ' + data);
             return data.Role === 'Team lead';
         })
         // console.log('filtered ddata '+JSON.stringify(filtered));
@@ -100,7 +101,7 @@ const deleteRoles = (req, res) => {
         console.log('inside delete query');
         console.log(result.rowCount);
         res.send(JSON.stringify(result.rowCount)+' row updated');
-    })
+    });
 }
 // 6-19-2019
 
@@ -196,6 +197,19 @@ const getSpecificStudent = (req, res) => {
     res.json(obj[id - 1]["name"]);
 };
 
+const getSpecificRole = (req,res)=>{
+    let id = req.params.id;
+    console.log('single role id ' + id);
+    //const obj = student.getStudents();
+    pool.query('select * FROM public."Roles" WHERE id=$1;',[id],(err,result)=>{
+        console.log('inside getSpecific role query');
+        console.log(typeof result.rows[0]);
+        console.log(result.rows[0]);
+        res.send(JSON.stringify(result.rows[0]));
+    })
+   //res.json(JSON.stringify(obj));
+};
+
 const addStudents = (req, res) => {
     //const stud={id:9,name:'king'};
     console.log('req params ' + JSON.stringify(req.body) + ' where id is ' + req.body.id);
@@ -220,6 +234,7 @@ module.exports = {
     addStudents,
     getUsers,
     getRoles,
+    getSpecificRole,
     postRoles,
     updateRoles,
     deleteRoles
