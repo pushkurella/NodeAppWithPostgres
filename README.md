@@ -10,3 +10,4 @@ and this too from feature branch
 feature branch sunday changes
 feature branch sunday changes 2
 just feature branch changes
+just feature 2 changes
