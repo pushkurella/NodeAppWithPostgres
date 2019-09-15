@@ -12,3 +12,5 @@ feature branch sunday changes 2
 pratyusha moturu made this change
 This is the update through feature branch
 and this too from feature branch
+This is the update through feature branch
+and this too from feature branch
