@@ -11,3 +11,4 @@ feature branch sunday changes
 feature branch sunday changes 2
 just feature branch changes
 just feature 2 changes
+master change directly in git
